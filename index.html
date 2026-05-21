@@ -8,13 +8,13 @@
     <!-- MANDATORY LIBRARIES -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/atropos@2.0.2/atropos.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/atropos@2.0.2/atropos.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://unpkg.com/split-type"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+
 
     <style>
         :root {
@@ -224,6 +224,66 @@
             margin: 4px;
         }
 
+        /* FIX: Allow clicks to pass through Atropos overlay layers to the <a> inside */
+        .atropos-rotate,
+        .atropos-scale { pointer-events: none; }
+        .atropos-inner a { pointer-events: all; cursor: pointer !important; }
+
+        /* ── RESPONSIVE ── */
+
+        .section-title { font-size: clamp(1.8rem, 6vw, 3.5rem); margin-bottom: clamp(24px, 4vw, 50px); }
+        .project-card  { width: 350px; height: 500px; }
+        .edu-grid      { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .timeline      { max-width: 900px; border-left: 3px solid var(--accent); padding-left: 50px; margin-left: 10px; }
+        .footer-inner  { display: flex; justify-content: space-between; align-items: flex-end; }
+        .hero-btns     { margin-top: 40px; display: flex; gap: 20px; flex-wrap: wrap; }
+
+        /* Tablet */
+        @media (max-width: 900px) {
+            section { padding: 80px 5% 80px 100px; min-height: auto; }
+            .sidebar { width: 55px; left: 10px; gap: 18px; padding: 20px 0; }
+            .hero-title { font-size: clamp(2.2rem, 7vw, 4rem); }
+            .bento-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+            .item-2x2 { grid-column: span 2; grid-row: span 1; }
+            .item-2x1 { grid-column: span 2; }
+            .project-card { width: 300px; height: 460px; }
+            .edu-grid { grid-template-columns: 1fr; gap: 24px; }
+            .edu-span-2 { grid-column: span 1 !important; }
+            .timeline { padding-left: 28px; }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            * { cursor: auto !important; }
+            #cursor { display: none; }
+            section { padding: 60px 5% 60px 5%; min-height: auto; }
+
+            .sidebar {
+                position: fixed;
+                left: 50%; top: auto; bottom: 16px;
+                transform: translateX(-50%);
+                width: auto; flex-direction: row;
+                border-radius: 50px; padding: 12px 20px; gap: 16px;
+            }
+            .theme-toggle { margin-top: 0; }
+
+            .hero-title { font-size: clamp(2rem, 11vw, 3rem); }
+            .bento-grid { grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
+            .item-2x2, .item-2x1 { grid-column: span 1; grid-row: span 1; }
+            .bento-item { padding: 22px; }
+            .marquee { font-size: 0.85rem; padding: 16px 0; }
+
+            .project-card { width: 90vw; height: auto; min-height: 380px; }
+
+            .edu-grid { grid-template-columns: 1fr; gap: 16px; }
+            .edu-span-2 { grid-column: span 1 !important; }
+            .timeline { border-left: 2px solid var(--accent); padding-left: 18px; margin-left: 0; }
+            .exp-header { flex-direction: column !important; align-items: flex-start !important; gap: 6px; }
+            .footer-inner { flex-direction: column; gap: 20px; align-items: flex-start; }
+            .hero-btns { flex-direction: column; gap: 12px; }
+            .btn { padding: 12px 24px; font-size: 0.85rem; text-align: center; }
+            .cert-grid { grid-template-columns: 1fr !important; }
+        }
     </style>
 </head>
 <body>
@@ -266,7 +326,7 @@
                     <p style="max-width: 700px; font-size: 1.2rem; color: var(--text); margin-top: 30px; line-height: 1.6; opacity: 0.8;" class="reveal-text">
                         AI & ML Engineering student with a strong foundation in machine learning fundamentals. Experienced in building scalable web applications, integrating ML models into production systems, and designing REST APIs.
                     </p>
-                    <div style="margin-top: 40px; display: flex; gap: 20px;">
+                    <div class="hero-btns">
                         <a href="mailto:deekus1140@gmail.com" class="btn neu-accent">Get In Touch</a>
                         <a href="https://github.com/deepakkushwaha9821" target="_blank" class="btn neu-flat">GitHub</a>
                     </div>
@@ -282,7 +342,7 @@
 
             <!-- 3: TECH STACK (Bento) -->
             <section id="tech">
-                <h2 class="reveal-text" style="font-size: 3.5rem; margin-bottom: 50px;">TECHNICAL_SKILLS</h2>
+                <h2 class="reveal-text section-title">TECHNICAL_SKILLS</h2>
                 <div class="bento-grid">
                     
                     <div class="bento-item neu-flat item-2x2" data-aos="fade-up">
@@ -326,10 +386,10 @@
 
             <!-- 7: PROJECTS (3D Tilt Cards) -->
             <section id="projects">
-                <h2 class="reveal-text" style="font-size: 3.5rem; margin-bottom: 60px; text-align: center;">PROJECT_DEPLOYMENTS</h2>
+                <h2 class="reveal-text section-title" style="text-align: center;">PROJECT_DEPLOYMENTS</h2>
                 <div style="display: flex; gap: 40px; justify-content: center; flex-wrap: wrap;">
                     
-                    <div class="atropos my-atropos" style="width: 350px; height: 500px;">
+                    <div class="atropos my-atropos project-card">
                         <div class="atropos-scale">
                             <div class="atropos-rotate">
                                 <div class="atropos-inner neu-flat bento-item" style="height: 100%;">
@@ -346,7 +406,7 @@
                         </div>
                     </div>
 
-                    <div class="atropos my-atropos" style="width: 350px; height: 500px;">
+                    <div class="atropos my-atropos project-card">
                         <div class="atropos-scale">
                             <div class="atropos-rotate">
                                 <div class="atropos-inner neu-flat bento-item" style="height: 100%;">
@@ -363,7 +423,7 @@
                         </div>
                     </div>
 
-                    <div class="atropos my-atropos" style="width: 350px; height: 500px;">
+                    <div class="atropos my-atropos project-card">
                         <div class="atropos-scale">
                             <div class="atropos-rotate">
                                 <div class="atropos-inner neu-flat bento-item" style="height: 100%;">
@@ -386,10 +446,10 @@
             <section id="experience" style="position: relative;">
                 <div id="flicker-grid" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; opacity: 0.2;"></div>
                 
-                <h2 class="reveal-text" style="font-size: 3.5rem; margin-bottom: 50px;">EXPERIENCE_LOG</h2>
-                <div style="max-width: 900px; border-left: 3px solid var(--accent); padding-left: 50px; margin-left: 10px;">
+                <h2 class="reveal-text section-title">EXPERIENCE_LOG</h2>
+                <div class="timeline">
                     <div class="neu-flat" style="padding: 40px; margin-bottom: 40px;" data-aos="fade-left">
-                        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <div class="exp-header" style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                             <h3 style="color: var(--accent);">Talentrise Technokrate</h3>
                             <span style="opacity: 0.5;">Feb 2025 – May 2025</span>
                         </div>
@@ -406,8 +466,8 @@
 
             <!-- 12/13: EDUCATION & CERTIFICATIONS (Floating Objects) -->
             <section id="education">
-                <h2 class="reveal-text" style="font-size: 3.5rem; margin-bottom: 50px; text-align: center;">ACADEMIC_HISTORY</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                <h2 class="reveal-text section-title" style="text-align: center;">ACADEMIC_HISTORY</h2>
+                <div class="edu-grid">
                     <div class="neu-pressed" style="padding: 40px;" data-aos="fade-up">
                         <h3 style="color: var(--accent); margin-bottom: 15px;">B.E. in AI & Machine Learning</h3>
                         <p style="opacity: 0.8;">2023–2026</p>
@@ -420,9 +480,9 @@
                         <h4 style="margin-top: 15px; font-size: 1.8rem; color: var(--accent);">Score: 64%</h4>
                     </div>
 
-                    <div class="neu-flat" style="padding: 40px; grid-column: span 2;" data-aos="fade-up">
-                        <h2 class="reveal-text" style="color: var(--accent); margin-bottom: 20px;">CERTIFICATIONS</h2>
-                        <ul style="opacity: 0.8; line-height: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="neu-flat edu-span-2" style="padding: 40px; grid-column: span 2;" data-aos="fade-up">
+                        <h2 class="reveal-text section-title" style="color: var(--accent);">CERTIFICATIONS</h2>
+                        <ul class="cert-grid" style="opacity: 0.8; line-height: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                             <li>• MongoDB – MongoDB Inc.</li>
                             <li>• SQL – IBM</li>
                             <li>• Supervised Machine Learning – Coursera</li>
@@ -434,8 +494,8 @@
                 </div>
             </section>
 
-            <footer style="padding: 100px 8% 50px 120px; border-top: 1px solid var(--shadow-dark);">
-                <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+            <footer style="padding: clamp(40px,8vw,100px) 8% clamp(30px,4vw,50px) clamp(20px,8vw,120px); border-top: 1px solid var(--shadow-dark);">
+                <div class="footer-inner">
                     <div>
                         <h2 style="font-size: 2rem; color: var(--accent);">DEEPAK.K</h2>
                         <p style="margin-top: 5px; opacity: 0.5;">SOLVING COMPLEX PROBLEMS // BUILDING IMPACTFUL SOLUTIONS</p>
@@ -548,8 +608,12 @@
             const glyphs = "01$#!@<>+=*^";
 
             targets.forEach(el => {
-                const split = new SplitType(el, { types: 'words' });
-                gsap.to(split.words, {
+                // Native word split — no SplitType needed
+                const words = el.innerText.trim().split(/\s+/);
+                el.innerHTML = words.map(w => `<span class="word" style="display:inline-block;opacity:0;transform:translateY(40px);margin-right:0.3em">${w}</span>`).join('');
+                const wordEls = el.querySelectorAll('.word');
+
+                gsap.to(wordEls, {
                     y: 0,
                     opacity: 1,
                     duration: 1,
@@ -559,7 +623,7 @@
                         trigger: el,
                         start: "top 85%",
                         onEnter: () => {
-                            split.words.forEach((word) => {
+                            wordEls.forEach((word) => {
                                 let originalText = word.innerText;
                                 let iterations = 0;
                                 const interval = setInterval(() => {
